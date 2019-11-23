@@ -11,4 +11,4 @@ gcloud config set project "$INPUT_GCR_PROJECT"
 docker build -t $IMAGE_NAME:$INPUT_IMAGE_TAG --build-arg GITHUB_SHA="$GITHUB_SHA" --build-arg GITHUB_REF="$GITHUB_REF" $INPUT_DOCKERFILE_PATH
 
 docker push $IMAGE_NAME:$INPUT_IMAGE_TAG
-gcloud container images add-tag $IMAGE_NAME:$INPUT_IMAGE_TAG $IMAGE_NAME::latest
+gcloud container images add-tag $IMAGE_NAME:$INPUT_IMAGE_TAG $IMAGE_NAME:latest
