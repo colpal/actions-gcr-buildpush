@@ -55,8 +55,6 @@ A tag to be added once to the image. By default the GitHub hash.
 
 This action also places the latest tag on whatever image is pushed
 
-## Required Environment Variables
-
 ## Example usage
 
 ```ylm
