@@ -1,5 +1,7 @@
 #!/bin/sh -l
 
+set -e
+
 IMAGE_NAME="$INPUT_GCR_HOST/$INPUT_GCR_PPOJECT/$INPUT_GCR_REPO$INPUT_GCR_IMAGE_NAME"
 
 echo "$INPUT_GCR_SERVICE_ACCOUNT" | base64 -d > /tmp/service_account.json
