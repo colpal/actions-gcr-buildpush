@@ -1,32 +1,32 @@
 name: 'gcr-buildpush'
-  author: 'Kevin Dukelow'
-  description: 'Build a docker file and push it to the GCR repository tagging it with the git hash and latest'
-  inputs:
-    gcr_service_account:
-      description: 'Service account secret for the GCR service user'
-      required: true
-    gcr_host:
-      description: 'GCR Host to be used to store the image'
-      required: false
-      default: 'us.gcr.io'
-    gcr_project:
-      description: 'Project which contains the desired repository'
-      required: true
-    gcr_repo:
-      description: 'Additional repository path to be used (ending in /)'
-      required: false
-      default: ''
-    gcr_image_name:
-      description: 'Name for the image in GCR'
-      required: true
-    dockerfile_path:
-      description: 'Path to the directory which contains the dockerfile to be built'
-      required: false
-      default: ''
-    image_tag:
-        description: 'Tag to be put on the image'
-        required: false
-        default: ${{ github.sha }}
+author: 'Kevin Dukelow'
+description: 'Build a docker file and push it to the GCR repository tagging it with the git hash and latest'
+inputs:
+  gcr_service_account:
+    description: 'Service account secret for the GCR service user'
+    required: true
+  gcr_host:
+    description: 'GCR Host to be used to store the image'
+    required: false
+    default: 'us.gcr.io'
+  gcr_project:
+    description: 'Project which contains the desired repository'
+    required: true
+  gcr_repo:
+    description: 'Additional repository path to be used (ending in /)'
+    required: false
+    default: ''
+  gcr_image_name:
+    description: 'Name for the image in GCR'
+    required: true
+  dockerfile_path:
+    description: 'Path to the directory which contains the dockerfile to be built'
+    required: false
+    default: ''
+  image_tag:
+    description: 'Tag to be put on the image'
+    required: false
+    default: ${{ github.sha }}
 runs:
   using: 'docker'
   image: 'Dockerfile'
