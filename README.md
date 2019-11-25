@@ -51,9 +51,9 @@ Path that contains 'Dockerfile' in you github project
 
 ### `image_tag`
 
-Image tag to set for the built image. By default the GitHub hash
+A tag to be added once to the image. By default the GitHub hash.
 
-This action also places the latest tag on whatever image is pushes
+This action also places the latest tag on whatever image is pushed
 
 ## Required Environment Variables
 
