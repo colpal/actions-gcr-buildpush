@@ -17,7 +17,7 @@ A credentials file containing for the service account to be used to push to the 
 
 #### Google Container Registry Host
 
-- us.gcr.ui (default)
+- us.gcr.io (default)
 - gcrp.io
 - etc
 
