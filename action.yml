@@ -4,7 +4,7 @@ description: 'Build a docker file and push it to the GCR repository tagging it w
 inputs:
   gcr_service_account:
     description: 'Service account secret for the GCR service user'
-    required: true
+    required: true 
   gcr_host:
     description: 'GCR Host to be used to store the image'
     required: false
