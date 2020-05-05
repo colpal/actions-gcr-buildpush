@@ -28,11 +28,13 @@ Built-in support for the most known registries: Docker Hub, AWS ECR, GitHub's re
 
 `push_image_and_stages`: Set to `false` to avoid pushing to the registry. Useful when you use `on: pull_request` (default: `true`).
 
-`push_git_tag`: In addition to `image_tag`, you can also push the git tag in your [branch tip][branch tip] (default: `true`).
+`push_git_tag`: In addition to `image_tag`, you can also push the git tag in your [branch tip][branch tip] (default: `false`).
 
 `pull_image_and_stages`: Set to `false` to avoid pulling from the registry or to build from scratch (default: `true`).
 
 `build_extra_args`: Provide extra arguments to `docker build` (e.g. `"--compress=true --build-arg=hello=world"`).
+
+`git_sha`: Set to `false` to not use additional Git hash label (default: *git hash*)
 
 [branch tip]: https://stackoverflow.com/questions/16080342/what-is-a-branch-tip-in-git
 
