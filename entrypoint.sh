@@ -194,7 +194,7 @@ build_image() {
   # build image using cache
   set -o pipefail
   set -x
-  if [ "$INPUT_PUSH_GIT_TAG" = true ]; then
+   if [ ! "$INPUT_GIT_SHA" = "false" ];then
   docker build \
     $cache_from \
     --tag $DUMMY_IMAGE_NAME \
