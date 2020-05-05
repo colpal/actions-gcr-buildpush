@@ -134,7 +134,7 @@ _create_aws_ecr_repos() {
 
 # action steps
 init_variables() {
-  $INPUT_PASSWORD="$(echo $INPUT_PASSWORD | base64 -d)"
+  INPUT_PASSWORD="$(echo $INPUT_PASSWORD | base64 -d)"
   DUMMY_IMAGE_NAME=my_awesome_image
   PULL_STAGES_LOG=pull-stages-output.log
   BUILD_LOG=build-output.log
