@@ -14,7 +14,7 @@ inputs:
     description: (Optional) Docker's registry password (needed to push image to repository, or to pull from private repository)
     required: false
   registry:
-    description: "(Optional) Docker registry (default: Docker Hub's registry)"
+    description: "(Optional) Docker registry (default: us.gcr.io)"
     required: false
     default: us.gcr.io
   image_tag:
