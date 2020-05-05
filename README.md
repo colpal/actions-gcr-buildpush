@@ -18,7 +18,7 @@ Built-in support for the most known registries: Docker Hub, AWS ECR, GitHub's re
 
 `password`: Docker registry's password (needed to push images to the repository, or to pull from a private repository - Assumes this is base64 encoded.).
 
-`registry`: Docker registry (default: *Docker Hub's registry*).
+`registry`: Docker registry (default: *Google Container Registry*).
 
 `image_tag`: Tag(s) of the image to build. Allows multiple comma-separated tags (e.g. `one,another`) (default: `latest`).
 

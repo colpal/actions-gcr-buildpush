@@ -13,7 +13,7 @@ _has_value() {
 }
 
 _is_docker_hub() {
-  [ -z "$INPUT_REGISTRY" ] || [[ "$INPUT_REGISTRY" =~ \.docker\.(com|io)(/|$) ]]
+  [[ "$INPUT_REGISTRY" =~ \.docker\.(com|io)(/|$) ]]
 }
 
 _is_github_registry() {
@@ -21,7 +21,7 @@ _is_github_registry() {
 }
 
 _is_gcloud_registry() {
-  [ "$INPUT_REGISTRY" = gcr.io ]
+  [ -z "$INPUT_REGISTRY" ] || [ "$INPUT_REGISTRY" = gcr.io ]
 }
 
 _is_aws_ecr() {
