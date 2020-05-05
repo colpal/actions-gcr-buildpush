@@ -207,7 +207,7 @@ tag_image() {
   echo -e "\n[Action Step] Tagging image..."
   local tag
   if [ ! "$INPUT_GIT_SHA" = "false" ];then
-      INPUT_IMAGE_TAG[@]+=("$INPUT_GIT_SHA")
+      INPUT_IMAGE_TAG+=("$INPUT_GIT_SHA")
   fi
   for tag in "${INPUT_IMAGE_TAG[@]}"; do
     echo "Tagging: $tag"
