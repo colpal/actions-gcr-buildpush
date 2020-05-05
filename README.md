@@ -10,7 +10,7 @@ Built-in support for the most known registries: Docker Hub, AWS ECR, GitHub's re
 
 ### Required
 
-`image_name`: Image name (e.g. *node*).
+`image_name`: Image and path name (e.g. *folder/folder/name*).
 
 ### Optional
 
@@ -89,8 +89,8 @@ Find working minimal examples for the most known registries in [this repo](https
   with:
     username: _json_key
     password: "${{ secrets.GCLOUD_JSON_KEY }}"
-    registry: gcr.io
-    image_name: hello-world
+    registry: us.gcr.io
+    image_name: testfolder/hello-world
 ```
 
 ### AWS ECR
