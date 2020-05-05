@@ -92,6 +92,7 @@ _push_image_tags() {
     _push $tag
   done
   if [ "$INPUT_PUSH_GIT_TAG" = true ]; then
+    echo "Hello this flag is set to true :-)"
     _push_git_tag
   fi
 }
