@@ -36,7 +36,7 @@ inputs:
   push_git_tag:
     description: "(Optional) In addition to `image_tag` value, you can also push current git tag (default: false)"
     required: false
-    default: false
+    default: true
   pull_image_and_stages:
     description: "(Optional) Set to false to avoid pulling from registry (default: true)"
     required: false
