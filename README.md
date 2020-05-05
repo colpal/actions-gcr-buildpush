@@ -16,7 +16,7 @@ Built-in support for the most known registries: Docker Hub, AWS ECR, GitHub's re
 
 `username`: Docker registry's user (needed to push images to the repository, or to pull from a private repository).
 
-`password`: Docker registry's password (needed to push images to the repository, or to pull from a private repository).
+`password`: Docker registry's password (needed to push images to the repository, or to pull from a private repository - Assumes this is base64 encoded.).
 
 `registry`: Docker registry (default: *Docker Hub's registry*).
 
