@@ -1,32 +1,53 @@
-name: 'gcr-buildpush'
-author: 'Kevin Dukelow'
-description: 'Build a docker file and push it to the GCR repository tagging it with the git hash and latest'
+name: Build docker images using cache
+description: Use registry to pull/push cache for an image (stages included)
+author: whoan
+
 inputs:
-  gcr_service_account:
-    description: 'Service account secret for the GCR service user'
-    required: true 
-  gcr_host:
-    description: 'GCR Host to be used to store the image'
-    required: false
-    default: 'us.gcr.io'
-  gcr_project:
-    description: 'Project which contains the desired repository'
+
+  image_name:
+    description: Name of the image to build
     required: true
-  gcr_repo:
-    description: 'Additional repository path to be used (ending in /)'
+  username:
+    description: (Optional) Docker's registry user (needed to push image to repository, or to pull from private repository)
     required: false
-    default: ''
-  gcr_image_name:
-    description: 'Name for the image in GCR'
-    required: true
-  dockerfile_path:
-    description: 'Path to the directory which contains the dockerfile to be built'
+  password:
+    description: (Optional) Docker's registry password (needed to push image to repository, or to pull from private repository)
     required: false
-    default: ''
+  registry:
+    description: "(Optional) Docker registry (default: Docker Hub's registry)"
+    required: false
   image_tag:
-    description: 'Tag to be put on the image'
+    description: "(Optional) Tag/s of the image to build (default: latest)"
     required: false
-    default: ${{ github.sha }}
+    default: latest
+  context:
+    description: "(Optional) Docker context (default: ./)"
+    required: false
+    default: .
+  dockerfile:
+    description: "(Optional) Name of the Dockerfile (default: Dockerfile)"
+    required: false
+    default: Dockerfile
+  push_image_and_stages:
+    description: "(Optional) Set to false to avoid pushing to registry (default: true)"
+    required: false
+    default: true
+  push_git_tag:
+    description: "(Optional) In addition to `image_tag` value, you can also push current git tag (default: false)"
+    required: false
+    default: false
+  pull_image_and_stages:
+    description: "(Optional) Set to false to avoid pulling from registry (default: true)"
+    required: false
+    default: true
+  build_extra_args:
+    description: "(Optional) Extra arguments to pass to docker build"
+    required: false
+
 runs:
   using: 'docker'
   image: 'Dockerfile'
+
+branding:
+  icon: 'anchor'
+  color: 'blue'

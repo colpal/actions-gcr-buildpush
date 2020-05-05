@@ -1,13 +1,10 @@
-FROM google/cloud-sdk:alpine
+FROM docker:19.03.2
 
-LABEL name="gcr-buildpush"
-LABEL version="1.0.0"
-LABEL com.github.actions.name="GCR Build and Push"
-LABEL com.github.actions.description="GitHub action with to build a docker container and push it to GCR"
-LABEL com.github.actions.color="blue"
-LABEL com.github.actions.icon="cloud"
+LABEL "maintainer"="whoan <juaneabadie@gmail.com>"
+LABEL "repository"="https://github.com/whoan/docker-build-with-cache-action"
 
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+
+RUN apk add --no-cache bash
 
 ENTRYPOINT ["/entrypoint.sh"]
