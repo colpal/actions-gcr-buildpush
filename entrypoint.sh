@@ -194,14 +194,14 @@ build_image() {
   # build image using cache
   set -o pipefail
   set -x
-   if [ ! "$INPUT_GIT_SHA" = "false" ];then
+  if [ ! "$INPUT_GIT_SHA" = "false" ];then
   docker build \
     $cache_from \
     --tag $DUMMY_IMAGE_NAME \
     --file ${INPUT_CONTEXT}/${INPUT_DOCKERFILE} \
+    --build-arg GITHUB_SHA="$INPUT_GIT_SHA" \
     ${INPUT_BUILD_EXTRA_ARGS} \
-    ${INPUT_CONTEXT} | tee "$BUILD_LOG" \
-    --build-arg GITHUB_SHA="$INPUT_GIT_SHA"
+    ${INPUT_CONTEXT} | tee "$BUILD_LOG"
   else
   docker build \
     $cache_from \
