@@ -248,6 +248,27 @@ logout_from_registry() {
   docker logout "${INPUT_REGISTRY}"
 }
 
+version_number(){
+  if [ ! -z "$INPUT_VERSION_UPDATE_TYPE" ] ;then
+    echo "Current Version Number:"
+    maxstage="$(docker pull --all-tags "$(_get_full_image_name)" | egrep -o "[0-9]+\.[0-9]+\.[0-9]+" | sort -n | tail -n 1)"
+    echo "$maxstage"
+    if [ -z "$maxstage" ] ;then
+      maxstage="0.0.0"
+    fi
+    majorPart="$(echo $maxstage | cut -d':' -f1)"
+    minorPart="$(echo $maxstage | cut -d':' -f2)"
+    bugPart="$(echo $maxstage | cut -d':' -f3)"
+    if [ "$INPUT_VERSION_UPDATE_TYPE" == "major"] ;then
+      echo $majorPart
+    elif [ "$INPUT_VERSION_UPDATE_TYPE" == "minor"] ;then
+      echo $minorPart
+    elif [ "$INPUT_VERSION_UPDATE_TYPE" == "bug"] ;then
+      echo $bugPart
+    fi
+  fi
+}
+
 if [ -z "$INPUT_GCR_SERVICE_ACCOUNT" ] ;then
 set -e
 echo "Using new code."
@@ -256,13 +277,9 @@ check_required_input
 login_to_registry
 pull_cached_stages
 build_image
-echo "Lookie here"
-cat "$PULL_STAGES_LOG"
 tag_image
 push_image_and_stages
-echo "Here is what is there"
-maxstage="$(docker pull --all-tags "$(_get_full_image_name)" | egrep -o "[0-9]+\.[0-9]+\.[0-9]+" | sort -n | tail -n 1)"
-echo "$maxstage"
+version_number
 logout_from_registry
 else
 set -ev
