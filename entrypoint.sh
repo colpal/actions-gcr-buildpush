@@ -251,10 +251,12 @@ logout_from_registry() {
 version_number(){
   if [ ! -z "$INPUT_VERSION_UPDATE_TYPE" ] ;then
     echo "Updating version number"
-    maxstage="$(docker pull --all-tags "$(_get_full_image_name)" | egrep -o "v[0-9]+\.[0-9]+\.[0-9]+" | egrep -o "[0-9]+\.[0-9]+\.[0-9]+" | sort -n | tail -n 1)"
+    maxstage="$(docker pull --all-tags "$(_get_full_image_name)" | egrep -o "v[0-9]+\.[0-9]+\.[0-9]+")"
     if [ -z "$maxstage" ] ;then
       echo "No version number yet."
       maxstage="0.0.0"
+    else
+      maxstage="$(egrep -o "[0-9]+\.[0-9]+\.[0-9]+" $maxstage | sort -n | tail -n 1)"
     fi
     echo "Current Version Number: $maxstage"
     majorPart="$(echo $maxstage | cut -d'.' -f1)"
