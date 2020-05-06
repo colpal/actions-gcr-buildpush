@@ -248,7 +248,7 @@ logout_from_registry() {
   docker logout "${INPUT_REGISTRY}"
 }
 
-if [ -z "$INPUT_GCR_SERVICE_ACCOUNT"] ;then
+if [ -z "$INPUT_GCR_SERVICE_ACCOUNT" ] ;then
 set -e
 echo "Using new code."
 init_variables
