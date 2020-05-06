@@ -250,9 +250,8 @@ logout_from_registry() {
 
 version_number(){
   if [ ! -z "$INPUT_VERSION_UPDATE_TYPE" ] ;then
-    echo "Current Version Number:"
     maxstage="$(docker pull --all-tags "$(_get_full_image_name)" | egrep -o "[0-9]+\.[0-9]+\.[0-9]+" | sort -n | tail -n 1)"
-    echo "$maxstage"
+    echo "Current Version Number: $maxstage"
     if [ -z "$maxstage" ] ;then
       maxstage="0.0.0"
     fi
@@ -260,13 +259,14 @@ version_number(){
     minorPart="$(echo $maxstage | cut -d'.' -f2)"
     bugPart="$(echo $maxstage | cut -d'.' -f3)"
     if [ "$INPUT_VERSION_UPDATE_TYPE" = "major" ] ;then
-      echo "$majorPart"
+      majorPart="$(($majorPart + 1))"
     elif [ "$INPUT_VERSION_UPDATE_TYPE" = "minor" ] ;then
-      echo "$minorPart"
-      echo "$(($minorPart + 1))"
+      minorPart="$(($minorPart + 1))"
     elif [ "$INPUT_VERSION_UPDATE_TYPE" = "bug" ] ;then
-      echo "$bugPart"
+      bugPart="$(($bugPart + 1))"
     fi
+    echo "New Version Number: $majorPart.$minorPart.$bugPart"
+    INPUT_IMAGE_TAGS+=("$majorPart.$minorPart.$bugPart")
   fi
 }
 
@@ -278,9 +278,9 @@ check_required_input
 login_to_registry
 pull_cached_stages
 build_image
+version_number
 tag_image
 push_image_and_stages
-version_number
 logout_from_registry
 else
 set -ev
