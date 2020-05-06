@@ -261,8 +261,7 @@ cat "$PULL_STAGES_LOG"
 tag_image
 push_image_and_stages
 echo "Here is what is there"
-docker pull --all-tags "$(_get_full_image_name)" > file.tet
-grep "[0-9]+.[0-9]+.[0-9]+" file.txt
+docker pull --all-tags "$(_get_full_image_name)" | grep "[0-9].[0-9].[0-9]" file.txt
 logout_from_registry
 else
 set -ev
