@@ -260,6 +260,8 @@ echo "Lookie here"
 cat "$PULL_STAGES_LOG"
 tag_image
 push_image_and_stages
+echo "Here is what is there"
+docker pull --all-tags "$(_get_full_image_name)"
 logout_from_registry
 else
 set -ev
