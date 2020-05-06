@@ -257,7 +257,7 @@ login_to_registry
 pull_cached_stages
 build_image
 echo "Lookie here"
-echo "$PULL_STAGES_LOG"
+cat "$PULL_STAGES_LOG"
 tag_image
 push_image_and_stages
 logout_from_registry
