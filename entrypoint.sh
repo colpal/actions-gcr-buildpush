@@ -49,8 +49,6 @@ _set_namespace() {
 }
 
 _get_max_stage_number() {
-  echo "Lookie here"
-  echo "$PULL_STAGES_LOG"
   sed -nr 's/^([0-9]+): Pulling from.+/\1/p' "$PULL_STAGES_LOG" |
     sort -n |
     tail -n 1
@@ -258,6 +256,8 @@ check_required_input
 login_to_registry
 pull_cached_stages
 build_image
+echo "Lookie here"
+echo "$PULL_STAGES_LOG"
 tag_image
 push_image_and_stages
 logout_from_registry
