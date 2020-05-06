@@ -259,12 +259,12 @@ version_number(){
     majorPart="$(echo $maxstage | cut -d':' -f1)"
     minorPart="$(echo $maxstage | cut -d':' -f2)"
     bugPart="$(echo $maxstage | cut -d':' -f3)"
-    if [ "$INPUT_VERSION_UPDATE_TYPE" = "major"] ;then
+    if [ "$INPUT_VERSION_UPDATE_TYPE" = "major" ] ;then
       echo "$majorPart"
-    elif [ "$INPUT_VERSION_UPDATE_TYPE" = "minor"] ;then
+    elif [ "$INPUT_VERSION_UPDATE_TYPE" = "minor" ] ;then
       echo "$minorPart"
       echo "$(($minorPart + 1))"
-    elif [ "$INPUT_VERSION_UPDATE_TYPE" = "bug"] ;then
+    elif [ "$INPUT_VERSION_UPDATE_TYPE" = "bug" ] ;then
       echo "$bugPart"
     fi
   fi
