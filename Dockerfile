@@ -1,4 +1,5 @@
-FROM docker:19.03.2
+FROM google/cloud-sdk:alpine
+#docker:19.03.2
 
 LABEL "maintainer"="whoan <juaneabadie@gmail.com>"
 LABEL "repository"="https://github.com/whoan/docker-build-with-cache-action"
