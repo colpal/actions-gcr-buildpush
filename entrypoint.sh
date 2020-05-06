@@ -49,6 +49,8 @@ _set_namespace() {
 }
 
 _get_max_stage_number() {
+  echo "Lookie here"
+  echo "$PULL_STAGES_LOG"
   sed -nr 's/^([0-9]+): Pulling from.+/\1/p' "$PULL_STAGES_LOG" |
     sort -n |
     tail -n 1
