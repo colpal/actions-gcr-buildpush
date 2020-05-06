@@ -262,7 +262,8 @@ version_number(){
     echo "$(docker pull --all-tags "$(_get_full_image_name)" | egrep -o "v[0-9]+\.[0-9]+\.[0-9]+" | egrep -o "[0-9]+\.[0-9]+\.[0-9]+" | sort -n | tail -n 1)"
     echo "6"
     maxstage="$(docker pull --all-tags "$(_get_full_image_name)" | egrep -o "v[0-9]+\.[0-9]+\.[0-9]+" | egrep -o "[0-9]+\.[0-9]+\.[0-9]+" | sort -n | tail -n 1)"
-    echo "Current Version Number: $maxstage"
+    echo "$maxstage"
+    echo "7"
     if [ -z "$maxstage" ] ;then
       maxstage="0.0.0"
     fi
