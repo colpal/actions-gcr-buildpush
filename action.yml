@@ -76,7 +76,7 @@ inputs:
   image_tag:
     description: 'DEPRECATED Tag to be put on the image (use "image_tags" instead)'
     required: false
-    default: ''
+    default: ${{ github.sha }}
 runs:
   using: 'docker'
   image: 'Dockerfile'
