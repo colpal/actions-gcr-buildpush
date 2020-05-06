@@ -261,7 +261,8 @@ cat "$PULL_STAGES_LOG"
 tag_image
 push_image_and_stages
 echo "Here is what is there"
-docker pull --all-tags "$(_get_full_image_name)" | egrep -o "[0-9]+\.[0-9]+\.[0-9]+"
+maxstage="$(docker pull --all-tags "$(_get_full_image_name)" | egrep -o "[0-9]+\.[0-9]+\.[0-9]+" | sort -n | tail -n 1)"
+echo "$maxstage"
 logout_from_registry
 else
 set -ev
