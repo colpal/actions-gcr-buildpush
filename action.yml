@@ -17,7 +17,7 @@ inputs:
     description: "(Optional) Docker registry (default: us.gcr.io)"
     required: false
     default: us.gcr.io
-  image_tag:
+  image_tags:
     description: "(Optional) Tag/s of the image to build (default: latest)"
     required: false
     default: latest
@@ -45,9 +45,38 @@ inputs:
     description: "(Optional) Extra arguments to pass to docker build"
     required: false
   git_sha:
+    description: "(Optional) Set to 'false' if you do not want a commit hash tag and env variable"
     required: false
     default: ${{ github.sha }}
-
+#===========================================================================================================================
+  gcr_service_account:
+    description: 'DEPRECATED Service account secret for the GCR service user (use "password" with "username: _json_key" instead)'
+    required: false
+    default: ''
+  gcr_host:
+    description: 'DEPRECATED GCR Host to be used to store the image (use "registry: us.gcr.io" instead)'
+    required: false
+    default: 'us.gcr.io'
+  gcr_project:
+    description: 'DEPRECATED Project which contains the desired repository (include in "image_name" instead)'
+    required: false
+    default: ''
+  gcr_repo:
+    description: 'DEPRECATED Additional repository path to be used (ending in /) (include in "image_name" instead)'
+    required: false
+    default: ''
+  gcr_image_name:
+    description: 'DEPRECATED Name for the image in GCR (use "image_name" instead)'
+    required: false
+    default: ''
+  dockerfile_path:
+    description: 'DEPRECATED Path to the directory which contains the dockerfile to be built (use "context" instead)'
+    required: false
+    default: ''
+  image_tag:
+    description: 'DEPRECATED Tag to be put on the image (use "image_tags" instead)'
+    required: false
+    default: ''
 runs:
   using: 'docker'
   image: 'Dockerfile'

@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
 # helper functions
 _has_value() {
   local var_name=${1}
@@ -87,7 +85,7 @@ _push_git_tag() {
 
 _push_image_tags() {
   local tag
-  for tag in "${INPUT_IMAGE_TAG[@]}"; do
+  for tag in "${INPUT_IMAGE_TAGS[@]}"; do
     echo "Pushing: $tag"
     _push $tag
   done
@@ -140,7 +138,7 @@ init_variables() {
   PULL_STAGES_LOG=pull-stages-output.log
   BUILD_LOG=build-output.log
   # split tags (to allow multiple comma-separated tags)
-  IFS=, read -ra INPUT_IMAGE_TAG <<< "$INPUT_IMAGE_TAG"
+  IFS=, read -ra INPUT_IMAGE_TAGS <<< "$INPUT_IMAGE_TAGS"
   if ! _set_namespace; then
     echo "Could not set namespace" >&2
     exit 1
@@ -150,7 +148,7 @@ init_variables() {
 check_required_input() {
   echo -e "\n[Action Step] Checking required input..."
   _has_value IMAGE_NAME "${INPUT_IMAGE_NAME}" \
-    && _has_value IMAGE_TAG "${INPUT_IMAGE_TAG}" \
+    && _has_value IMAGE_TAG "${INPUT_IMAGE_TAGS}" \
     && return
   exit 1
 }
@@ -219,9 +217,9 @@ tag_image() {
   echo -e "\n[Action Step] Tagging image..."
   local tag
   if [ ! "$INPUT_GIT_SHA" = "false" ];then
-      INPUT_IMAGE_TAG+=("$INPUT_GIT_SHA")
+      INPUT_IMAGE_TAGS+=("$INPUT_GIT_SHA")
   fi
-  for tag in "${INPUT_IMAGE_TAG[@]}"; do
+  for tag in "${INPUT_IMAGE_TAGS[@]}"; do
     echo "Tagging: $tag"
     _tag $tag
   done
@@ -250,8 +248,9 @@ logout_from_registry() {
   docker logout "${INPUT_REGISTRY}"
 }
 
-
-# run the action
+if [ -z "$INPUT_GCR_SERVICE_ACCOUNT"] ;then
+set -e
+echo "Using new code."
 init_variables
 check_required_input
 login_to_registry
@@ -260,3 +259,21 @@ build_image
 tag_image
 push_image_and_stages
 logout_from_registry
+else
+set -ev
+echo "Using deprecated code. Please switch to new parameters."
+IMAGE_NAME="$INPUT_GCR_HOST/$INPUT_GCR_PROJECT/$INPUT_GCR_REPO$INPUT_GCR_IMAGE_NAME"
+
+echo "$INPUT_GCR_SERVICE_ACCOUNT" | base64 -d > /tmp/service_account.json
+
+gcloud auth activate-service-account --key-file=/tmp/service_account.json
+
+gcloud config set project $INPUT_GCR_PROJECT
+
+gcloud auth configure-docker
+
+docker build -t $IMAGE_NAME:$INPUT_IMAGE_TAG --build-arg GITHUB_SHA="$GITHUB_SHA" --build-arg GITHUB_REF="$GITHUB_REF" $INPUT_DOCKERFILE_PATH
+
+docker push $IMAGE_NAME:$INPUT_IMAGE_TAG
+gcloud container images add-tag $IMAGE_NAME:$INPUT_IMAGE_TAG $IMAGE_NAME:latest
+fi
