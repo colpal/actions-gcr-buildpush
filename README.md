@@ -36,8 +36,6 @@ Built-in support for the most known registries: Docker Hub, AWS ECR, GitHub's re
 
 `git_sha`: Set to `false` to not use additional Git hash label (default: *git hash*).
 
-`version_update_type`: Whether update is a major version update, minor, or bug fix. Can be `major`, `minor`, or `bug`.
-
 [branch tip]: https://stackoverflow.com/questions/16080342/what-is-a-branch-tip-in-git
 
 ## Outputs
