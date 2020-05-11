@@ -6,6 +6,8 @@ By default, it pushes the image with all the stages to a registry (needs usernam
 
 Built-in support for the most known registries: Docker Hub, AWS ECR, GitHub's registry, and Google Cloud.
 
+If the commit message starts with `[MAJOR]`, `[MINOR]`, or `[PATCH]`, the image will be tagged with the SemVer updated accordingly.
+
 ## Inputs
 
 ### Required
