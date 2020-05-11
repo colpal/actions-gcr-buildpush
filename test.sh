@@ -1,3 +1,3 @@
-if [ $(git log -1 --pretty=%B | grep [MAJOR]) ] ;then
+if [ $(git log -1 --pretty=%B | grep -e "^\[MAJOR\]") ] ;then
 echo "MAJOR"
 fi
