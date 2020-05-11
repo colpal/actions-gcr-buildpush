@@ -249,6 +249,16 @@ logout_from_registry() {
 }
 
 version_number(){
+  if [ ! -z "$(git log -1 --pretty=%B | head -n 1 | grep -e "^\[MAJOR\]")" ] ;then
+    echo "MAJOR"
+  elif [ ! -z "$(git log -1 --pretty=%B | head -n 1 | grep -e "^\[MINOR\]")" ] ;then
+    echo "MINOR"
+  elif [ ! -z "$(git log -1 --pretty=%B | head -n 1 | grep -e "^\[PATCH\]")" ] ;then
+    echo "PATCH"
+  else
+    echo "No version update detected."
+  return
+  fi
   if [ ! -z "$INPUT_VERSION_UPDATE_TYPE" ] ;then
     maxstage=$(docker pull --all-tags "$(_get_full_image_name)" | egrep -o "v[0-9]+\.[0-9]+\.[0-9]+" | egrep -o "[0-9]+\.[0-9]+\.[0-9]+" | sort -n | tail -n 1 || true)
     if [ -z "$maxstage" ] ;then
