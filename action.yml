@@ -48,9 +48,6 @@ inputs:
     description: "(Optional) Set to 'false' if you do not want a commit hash tag and env variable"
     required: false
     default: ${{ github.sha }}
-  version_update_type:
-    description: "(Optional) Whether it is a major version update, minor, or bug fix. Can be 'major', 'minor', or 'bug'"
-    required: false
 #===========================================================================================================================
   gcr_service_account:
     description: 'DEPRECATED Service account secret for the GCR service user (use "password" with "username: _json_key" instead)'

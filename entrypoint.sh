@@ -249,35 +249,37 @@ logout_from_registry() {
 }
 
 version_number(){
-  if [ ! -z "$(git log -1 --pretty=%B | head -n 1 | grep -e "^\[MAJOR\]")" ] ;then
-    echo "MAJOR"
-  elif [ ! -z "$(git log -1 --pretty=%B | head -n 1 | grep -e "^\[MINOR\]")" ] ;then
-    echo "MINOR"
-  elif [ ! -z "$(git log -1 --pretty=%B | head -n 1 | grep -e "^\[PATCH\]")" ] ;then
-    echo "PATCH"
+  message=$(git log -1 --pretty=%B | head -n 1 | grep -e "^\[MAJOR\]" || true)
+  if [ ! -z "$message" ] ;then
+    echo "Major update detected."
+    update_type="major"
+  elif [ ! -z "$message" ] ;then
+    echo "Minor upate detected."
+    update_type="minor"
+  elif [ ! -z "$message" ] ;then
+    echo "Patch update detected."
+    update_type="patch"
   else
     echo "No version update detected."
   return
   fi
-  if [ ! -z "$INPUT_VERSION_UPDATE_TYPE" ] ;then
-    maxstage=$(docker pull --all-tags "$(_get_full_image_name)" | egrep -o "v[0-9]+\.[0-9]+\.[0-9]+" | egrep -o "[0-9]+\.[0-9]+\.[0-9]+" | sort -n | tail -n 1 || true)
-    if [ -z "$maxstage" ] ;then
-      maxstage="0.0.0"
-    fi
-    echo "\nOld Version Number: $maxstage"
-    majorPart="$(echo $maxstage | cut -d'.' -f1)"
-    minorPart="$(echo $maxstage | cut -d'.' -f2)"
-    bugPart="$(echo $maxstage | cut -d'.' -f3)"
-    if [ "$INPUT_VERSION_UPDATE_TYPE" = "major" ] ;then
-      majorPart="$(($majorPart + 1))"
-    elif [ "$INPUT_VERSION_UPDATE_TYPE" = "minor" ] ;then
-      minorPart="$(($minorPart + 1))"
-    elif [ "$INPUT_VERSION_UPDATE_TYPE" = "bug" ] ;then
-      bugPart="$(($bugPart + 1))"
-    fi
-    echo "New Version Number: $majorPart.$minorPart.$bugPart \n"
-    INPUT_IMAGE_TAGS+=("v$majorPart.$minorPart.$bugPart")
+  maxstage=$(docker pull --all-tags "$(_get_full_image_name)" | egrep -o "v[0-9]+\.[0-9]+\.[0-9]+" | egrep -o "[0-9]+\.[0-9]+\.[0-9]+" | sort -n | tail -n 1 || true)
+  if [ -z "$maxstage" ] ;then
+    maxstage="0.0.0"
   fi
+  echo -e "\nOld Version Number: $maxstage \n"
+  majorPart="$(echo $maxstage | cut -d'.' -f1)"
+  minorPart="$(echo $maxstage | cut -d'.' -f2)"
+  bugPart="$(echo $maxstage | cut -d'.' -f3)"
+  if [ "$update_type" = "major" ] ;then
+    majorPart="$(($majorPart + 1))"
+  elif [ "$update_type" = "minor" ] ;then
+    minorPart="$(($minorPart + 1))"
+  elif [ "$update_type" = "patch" ] ;then
+    bugPart="$(($bugPart + 1))"
+  fi
+  echo -e "\nNew Version Number: $majorPart.$minorPart.$bugPart \n"
+  INPUT_IMAGE_TAGS+=("v$majorPart.$minorPart.$bugPart")
 }
 
 set -e
