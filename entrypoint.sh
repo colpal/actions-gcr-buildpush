@@ -251,8 +251,9 @@ logout_from_registry() {
 version_number(){
   if [ ! -z "$INPUT_VERSION_UPDATE_TYPE" ] ;then
     echo "zero"
-    docker pull --all-tags "$(_get_full_image_name)" | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]+"
+    test=$(docker pull --all-tags "$(_get_full_image_name)" | grep -eo "v[0-9]+\.[0-9]+\.[0-9]+" || true)
     echo $?
+    echo "Test: $test"
     echo "1"
     maxstage=$(docker pull --all-tags "$(_get_full_image_name)" | egrep -o "v[0-9]+\.[0-9]+\.[0-9]+" | egrep -o "[0-9]+\.[0-9]+\.[0-9]+" | sort -n | tail -n 1)
     echo "$maxstage"
