@@ -253,7 +253,7 @@ version_number(){
     echo "1"
     temp="$(docker pull --all-tags "$(_get_full_image_name)")"
     echo "2"
-    temp="$(docker pull --all-tags "$(_get_full_image_name)" | egrep -o "v[0-9]+\.[0-9]+\.[0-9]+")"
+    temp="$(egrep -o "v[0-9]+\.[0-9]+\.[0-9]+" "$temp")"
     echo "3"
     temp="$(docker pull --all-tags "$(_get_full_image_name)" | egrep -o "v[0-9]+\.[0-9]+\.[0-9]+" | egrep -o "[0-9]+\.[0-9]+\.[0-9]+")"
     echo "4"
