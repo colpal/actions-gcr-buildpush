@@ -250,14 +250,14 @@ logout_from_registry() {
 
 version_number(){
   echo -e "\n[Action Step] Updating version number"
-  message=$(git log -1 --pretty=%B | head -n 1 | grep -e "^\[MAJOR\]" || true)
-  if [ ! -z "$message" ] ;then
+  message=$(git log -1 --pretty=%B | head -n 1)
+  if [ ! -z "$(grep -e "^\[MAJOR\]" $message || true)" ] ;then
     echo "Major update detected."
     update_type="major"
-  elif [ ! -z "$message" ] ;then
+  elif [ ! -z "$(grep -e "^\[MINOR\]" $message || true)" ] ;then
     echo "Minor upate detected."
     update_type="minor"
-  elif [ ! -z "$message" ] ;then
+  elif [ ! -z "$(grep -e "^\[PATCH\]" $message || true)" ] ;then
     echo "Patch update detected."
     update_type="patch"
   else
