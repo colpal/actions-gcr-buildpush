@@ -271,7 +271,7 @@ version_number(){
 }
 
 set -e
-if [! -z "$INPUT_GCR_SERVICE_ACCOUNT" ] ;then
+if [ ! -z "$INPUT_GCR_SERVICE_ACCOUNT" ] ;then
 echo "Using deprecated code. Please switch to new parameters."
 INPUT_IMAGE_NAME="$INPUT_GCR_PROJECT/$INPUT_GCR_REPO$INPUT_GCR_IMAGE_NAME"
 INPUT_USERNAME="_json_key"
