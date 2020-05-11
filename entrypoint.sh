@@ -249,6 +249,7 @@ logout_from_registry() {
 }
 
 version_number(){
+  echo -e "\n[Action Step] Updating version number"
   message=$(git log -1 --pretty=%B | head -n 1 | grep -e "^\[MAJOR\]" || true)
   if [ ! -z "$message" ] ;then
     echo "Major update detected."
@@ -267,7 +268,7 @@ version_number(){
   if [ -z "$maxstage" ] ;then
     maxstage="0.0.0"
   fi
-  echo -e "\nOld Version Number: $maxstage \n"
+  echo -e "Old Version Number: $maxstage"
   majorPart="$(echo $maxstage | cut -d'.' -f1)"
   minorPart="$(echo $maxstage | cut -d'.' -f2)"
   bugPart="$(echo $maxstage | cut -d'.' -f3)"
@@ -278,7 +279,7 @@ version_number(){
   elif [ "$update_type" = "patch" ] ;then
     bugPart="$(($bugPart + 1))"
   fi
-  echo -e "\nNew Version Number: $majorPart.$minorPart.$bugPart \n"
+  echo -e "New Version Number: $majorPart.$minorPart.$bugPart"
   INPUT_IMAGE_TAGS+=("v$majorPart.$minorPart.$bugPart")
 }
 
