@@ -251,21 +251,9 @@ logout_from_registry() {
 version_number(){
   if [ ! -z "$INPUT_VERSION_UPDATE_TYPE" ] ;then
     echo "1"
-    temp="$(docker pull --all-tags "$(_get_full_image_name)")"
-    echo $?
-    echo "2"
-    temp="$(egrep -o "v[0-9]+\.[0-9]+\.[0-9]+" "$temp")"
-    echo "3"
-    temp="$(docker pull --all-tags "$(_get_full_image_name)" | egrep -o "v[0-9]+\.[0-9]+\.[0-9]+" | egrep -o "[0-9]+\.[0-9]+\.[0-9]+")"
-    echo "4"
-    temp="$(docker pull --all-tags "$(_get_full_image_name)" | egrep -o "v[0-9]+\.[0-9]+\.[0-9]+" | egrep -o "[0-9]+\.[0-9]+\.[0-9]+" | sort -n)"
-    echo "5"
-    temp="$(docker pull --all-tags "$(_get_full_image_name)" | egrep -o "v[0-9]+\.[0-9]+\.[0-9]+" | egrep -o "[0-9]+\.[0-9]+\.[0-9]+" | sort -n | tail -n 1)"
-    echo $?
-    echo "6"
-    maxstage="$(docker pull --all-tags "$(_get_full_image_name)" | egrep -o "v[0-9]+\.[0-9]+\.[0-9]+" | egrep -o "[0-9]+\.[0-9]+\.[0-9]+" | sort -n | tail -n 1)"
+    maxstage=$(docker pull --all-tags "$(_get_full_image_name)" | egrep -o "v[0-9]+\.[0-9]+\.[0-9]+" | egrep -o "[0-9]+\.[0-9]+\.[0-9]+" | sort -n | tail -n 1)
     echo "$maxstage"
-    echo "7"
+    echo "2"
     if [ -z "$maxstage" ] ;then
       maxstage="0.0.0"
     fi
