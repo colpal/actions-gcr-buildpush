@@ -252,6 +252,7 @@ version_number(){
   if [ ! -z "$INPUT_VERSION_UPDATE_TYPE" ] ;then
     echo "1"
     temp="$(docker pull --all-tags "$(_get_full_image_name)")"
+    echo $?
     echo "2"
     temp="$(egrep -o "v[0-9]+\.[0-9]+\.[0-9]+" "$temp")"
     echo "3"
