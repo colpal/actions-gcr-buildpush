@@ -251,13 +251,13 @@ logout_from_registry() {
 version_number(){
   echo -e "\n[Action Step] Updating version number"
   message=$(git log -1 --pretty=%B | head -n 1)
-  if [ ! -z "$(grep -e "^\[MAJOR\]" "$message" || true)" ] ;then
+  if [ ! -z "$(echo "$message" | grep -e "^\[MAJOR\]" || true)" ] ;then
     echo "Major update detected."
     update_type="major"
-  elif [ ! -z "$(grep -e "^\[MINOR\]" "$message" || true)" ] ;then
+  elif [ ! -z "$(echo "$message" | grep -e "^\[MINOR\]" || true)" ] ;then
     echo "Minor upate detected."
     update_type="minor"
-  elif [ ! -z "$(grep -e "^\[PATCH\]" "$message" || true)" ] ;then
+  elif [ ! -z "$(echo "$message" | grep -e "^\[PATCH\]" || true)" ] ;then
     echo "Patch update detected."
     update_type="patch"
   else
