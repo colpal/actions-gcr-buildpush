@@ -265,7 +265,7 @@ version_number(){
   return
   fi
   maxstage=$(docker pull --all-tags "$(_get_full_image_name)" | egrep -o "v[0-9]+\.[0-9]+\.[0-9]+" | egrep -o "[0-9]+\.[0-9]+\.[0-9]+" | sort -n | tail -n 1 || true)
-  if [ -z "$maxstage" ] ;then
+  if [ -z $maxstage ] ;then
     maxstage="0.0.0"
   fi
   echo -e "Old Version Number: $maxstage"
