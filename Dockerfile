@@ -1,4 +1,4 @@
-FROM google/cloud-sdk:alpine
+FROM google/cloud-sdk:303.0.0-alpine
 
 LABEL name="gcr-buildpush"
 LABEL version="1.0.0"
