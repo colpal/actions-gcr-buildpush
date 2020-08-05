@@ -12,7 +12,7 @@ USER 0
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-RUN adduser -D gcr-user -u 2000 -s /sbin/nologin
+RUN adduser -D actions-user -u 2000 -s /sbin/nologin
 USER 2000
 
 ENTRYPOINT ["/entrypoint.sh"]
