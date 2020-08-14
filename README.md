@@ -57,7 +57,7 @@ This action also places the latest tag on whatever image is pushed
 
 ## Example usage
 
-```yaml
+```ylm
 uses: colpal/actions-gcr-buildpush
     with: 
     gcr_service_account: ${{ secrets.GCR_GCP_CREDENTIALS }}
