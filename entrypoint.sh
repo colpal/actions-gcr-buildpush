@@ -3,7 +3,6 @@
 set -ev
 
 IMAGE_NAME="$INPUT_GCR_HOST/$INPUT_GCR_PROJECT/$INPUT_GCR_REPO$INPUT_GCR_IMAGE_NAME"
-env
 
 echo "$INPUT_GCR_SERVICE_ACCOUNT" | base64 -d > /tmp/service_account.json
 md5sum /tmp/service_account.json
