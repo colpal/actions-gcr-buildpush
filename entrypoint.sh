@@ -293,6 +293,7 @@ INPUT_REGISTRY=$INPUT_GCR_HOST
 INPUT_IMAGE_TAGS=$INPUT_IMAGE_TAG
 INPUT_CONTEXT=$INPUT_DOCKERFILE_PATH
 fi
+git config --global --add safe.directory /github/workspace
 init_variables
 check_required_input
 login_to_registry
