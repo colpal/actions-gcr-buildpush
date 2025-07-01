@@ -1,4 +1,4 @@
-FROM google/cloud-sdk:alpine
+FROM google/cloud-sdk:528.0.0-alpine
 #docker:19.03.2
 
 LABEL "maintainer"="whoan <juaneabadie@gmail.com>"
